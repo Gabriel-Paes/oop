@@ -1,0 +1,29 @@
+{
+  "name": "oop",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gabriel-Paes/oop.git"
+  },
+  "keywords": [
+    "OOP",
+    "TypeScript",
+    "CRUD"
+  ],
+  "author": "Gabriel-Paes",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Gabriel-Paes/oop/issues"
+  },
+  "homepage": "https://github.com/Gabriel-Paes/oop#readme",
+  "description": "",
+  "devDependencies": {
+    "typescript": "^5.5.4"
+  }
+}
