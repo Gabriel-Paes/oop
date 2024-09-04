@@ -4,8 +4,8 @@ import { Disciplina } from "./models/disciplina";
 
 import alunos from "./data/alunos.json";
 
-const disciplina1 = new Disciplina("Sistemas distribuídos", "SD1");
-const disciplina2 = new Disciplina("Desenvolvimento Web", "DW1");
+const disciplina1 = new Disciplina("Sistemas distribuídos", "SD");
+const disciplina2 = new Disciplina("Desenvolvimento Web", "DW");
 
 console.log("Disciplinas:\n");
 disciplina1.toString();
@@ -22,24 +22,43 @@ alunos.forEach((aluno, index) => {
   }
 });
 
-const alunosTurma1 = turma1.listarAlunos();
+function listarTurma(turma: Turma): void {
+  console.log(
+    `\nAlunos da turma de ${turma.disciplina.nome} (${turma.codigo})\n`
+  );
+  turma.listarAlunos().forEach((aluno) => {
+    aluno.toString();
+  });
+}
 
-console.log(
-  `\nAlunos da turma de ${turma1.disciplina.nome}(${turma1.codigo})\n`
-);
+listarTurma(turma1);
 
-alunosTurma1.forEach((aluno) => {
-  aluno.toString();
+function buscarAluno(matricula: number): Aluno | undefined {
+  let alunoEspecifico = turma1.buscarAlunoPorMatricula(matricula);
+
+  if (alunoEspecifico === undefined) {
+    alunoEspecifico = turma2.buscarAlunoPorMatricula(matricula);
+  }
+
+  if (alunoEspecifico !== undefined) {
+    console.log(`Aluno com a matrícula ${matricula}:\n`);
+    alunoEspecifico?.toString();
+
+    return alunoEspecifico;
+  } else {
+    console.log(`Aluno com a matrícula ${matricula} não encontrado.\n`);
+  }
+}
+
+const alunoEspecifico = buscarAluno(1005);
+
+alunoEspecifico?.atualizarAluno({
+  nome: "Helena Souza",
+  email: "helena.souza@email.com",
 });
 
-const alunoEspecifico = turma1.buscarAlunoPorMatricula(1);
+listarTurma(turma1);
 
-console.log(alunoEspecifico?.toString());
+turma1.removerAluno(1015);
 
-alunoEspecifico?.atualizarAluno({ nome: "Gabriel Paes" });
-
-alunoEspecifico?.toString();
-
-turma1.removerAluno(1);
-
-console.log(turma1.listarAlunos());
+listarTurma(turma1);
