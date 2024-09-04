@@ -1,0 +1,102 @@
+[
+  {
+    "nome": "Gabriel Paes",
+    "matricula": 1001,
+    "email": "gabriel.paes@email.com"
+  },
+  {
+    "nome": "Bruno Oliveira",
+    "matricula": 1002,
+    "email": "bruno.oliveira@email.com"
+  },
+  {
+    "nome": "Amanda Torres",
+    "matricula": 1003,
+    "email": "amanda.torres@email.com"
+  },
+  {
+    "nome": "Daniel Costa",
+    "matricula": 1004,
+    "email": "daniel.costa@email.com"
+  },
+  {
+    "nome": "Elena Souza",
+    "matricula": 1005,
+    "email": "elena.souza@email.com"
+  },
+  {
+    "nome": "Fabio Pereira",
+    "matricula": 1006,
+    "email": "fabio.pereira@email.com"
+  },
+  {
+    "nome": "Gabriela Nunes",
+    "matricula": 1007,
+    "email": "gabriela.nunes@email.com"
+  },
+  {
+    "nome": "Henrique Rocha",
+    "matricula": 1008,
+    "email": "henrique.rocha@email.com"
+  },
+  {
+    "nome": "Isabela Lima",
+    "matricula": 1009,
+    "email": "isabela.lima@email.com"
+  },
+  {
+    "nome": "João Alves",
+    "matricula": 1010,
+    "email": "joao.alves@email.com"
+  },
+  {
+    "nome": "Karen Martins",
+    "matricula": 1011,
+    "email": "karen.martins@email.com"
+  },
+  {
+    "nome": "Lucas Mendes",
+    "matricula": 1012,
+    "email": "lucas.mendes@email.com"
+  },
+  {
+    "nome": "Mariana Fonseca",
+    "matricula": 1013,
+    "email": "mariana.fonseca@email.com"
+  },
+  {
+    "nome": "Nicolas Ferreira",
+    "matricula": 1014,
+    "email": "nicolas.ferreira@email.com"
+  },
+  {
+    "nome": "Olivia Ribeiro",
+    "matricula": 1015,
+    "email": "olivia.ribeiro@email.com"
+  },
+  {
+    "nome": "Paulo Moreira",
+    "matricula": 1016,
+    "email": "paulo.moreira@email.com"
+  },
+  {
+    "nome": "Quênia Azevedo",
+    "matricula": 1017,
+    "email": "quenia.azevedo@email.com"
+  },
+  {
+    "nome": "Ricardo Teixeira",
+    "matricula": 1018,
+    "email": "ricardo.teixeira@email.com"
+  },
+  {
+    "nome": "Sofia Cardoso",
+    "matricula": 1019,
+    "email": "sofia.cardoso@email.com"
+  },
+  {
+    "nome": "Thiago Alvernaz",
+    "matricula": 1020,
+    "email": "thiago.alvernaz@email.com"
+  }
+]
