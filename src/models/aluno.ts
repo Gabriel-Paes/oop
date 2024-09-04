@@ -27,7 +27,7 @@ export class Aluno {
 
   toString(): void {
     console.log(
-      `Nome: ${this.nome}\nMatrícula: ${this.matricula}\nE-mail:${this.email}`
+      `Nome: ${this.nome}\nMatrícula: ${this.matricula}\nE-mail: ${this.email}\n`
     );
   }
 }

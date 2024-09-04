@@ -8,6 +8,6 @@ export class Disciplina {
   }
 
   toString(): void {
-    console.log(`Nome: ${this.nome}\nCódigo: ${this.codigo}`);
+    console.log(`Nome: ${this.nome}\nCódigo: ${this.codigo}\n`);
   }
 }
