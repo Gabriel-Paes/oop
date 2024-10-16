@@ -21,10 +21,28 @@ export class Turma {
   }
 
   buscarAlunoPorMatricula(matricula: number): Aluno | undefined {
-    return this.alunos.find((aluno) => aluno.matricula === matricula);
+    const aluno = this.alunos.find((aluno) => aluno.matricula === matricula);
+
+    if (aluno === undefined) {
+      console.log(`Aluno com a matrícula ${matricula} não encontrado.\n`);
+    } else {
+      console.log(`Aluno com a matrícula ${matricula}:\n`);
+      aluno.toString();
+    }
+
+    return aluno;
   }
 
-  listarAlunos(): Aluno[] {
-    return this.alunos;
+  listarAlunos(): void {
+    const infoTurma = `${this.disciplina.nome} (${this.codigo})`;
+
+    if (this.alunos.length === 0) {
+      console.log(`A turma de ${infoTurma} não tem alunos cadastrados.`);
+    } else {
+      console.log(`\nAlunos da turma de ${infoTurma}\n`);
+      this.alunos.forEach((aluno) => {
+        aluno.toString();
+      });
+    }
   }
 }

@@ -2,63 +2,191 @@ import { Aluno } from "./models/aluno";
 import { Turma } from "./models/turma";
 import { Disciplina } from "./models/disciplina";
 
-import alunos from "./data/alunos.json";
+import { Menu } from "./menu";
 
-const disciplina1 = new Disciplina("Sistemas distribuídos", "SD");
-const disciplina2 = new Disciplina("Desenvolvimento Web", "DW");
+const disciplinas: Disciplina[] = [];
+const turmas: Turma[] = [];
 
-console.log("Disciplinas:\n");
-disciplina1.toString();
-disciplina2.toString();
+const config: { option: string; action: () => Promise<void> }[] = [
+  { option: "Adicionar disciplina", action: addDiciplina },
+  { option: "Adicionar turma", action: addTruma },
+  { option: "Adicionar aluno a uma turma", action: addAluno },
+  { option: "Listar alunos de uma turma", action: listarAluno },
+  { option: "Buscar aluno por matrícula", action: buscarAluno },
+  { option: "Atualizar informações de um aluno", action: atualizarAluno },
+  { option: "Remover aluno da turma", action: removerAluno },
+];
 
-const turma1 = new Turma("SD-001", disciplina1);
-const turma2 = new Turma("DW-001", disciplina2);
+const menu = new Menu(config, "Encerrando...");
+menu.run();
 
-alunos.forEach((aluno, index) => {
-  if (index % 2 === 0) {
-    turma1.adicionarAluno(new Aluno(aluno.nome, aluno.matricula, aluno.email));
-  } else {
-    turma2.adicionarAluno(new Aluno(aluno.nome, aluno.matricula, aluno.email));
-  }
-});
-
-function listarTurma(turma: Turma): void {
+async function addDiciplina(): Promise<void> {
+  const nomeDisciplina = await menu.question("Nome da disciplina: ");
+  const codigoDisciplina = await menu.question("Código da disciplina: ");
+  disciplinas.push(new Disciplina(nomeDisciplina, codigoDisciplina));
   console.log(
-    `\nAlunos da turma de ${turma.disciplina.nome} (${turma.codigo})\n`
+    `Disciplina de ${nomeDisciplina} - ${codigoDisciplina}, foi criada com sucesso.`
   );
-  turma.listarAlunos().forEach((aluno) => {
-    aluno.toString();
+}
+
+async function addTruma(): Promise<void> {
+  if (!disciplinas.length) {
+    return console.log("É necessário ter ao menos uma disciplina.");
+  }
+
+  disciplinas.forEach((disciplina, i) => {
+    console.log(
+      `${i + 1} - Nome: ${disciplina.nome} Código: ${disciplina.codigo}`
+    );
   });
-}
+  const indexDisciplina = await menu.question("Número da disciplina: ");
+  const index = parseInt(indexDisciplina) - 1;
 
-listarTurma(turma1);
-
-function buscarAluno(matricula: number): Aluno | undefined {
-  let alunoEspecifico = turma1.buscarAlunoPorMatricula(matricula);
-
-  if (alunoEspecifico === undefined) {
-    alunoEspecifico = turma2.buscarAlunoPorMatricula(matricula);
+  if (index < 0 || index >= disciplinas.length) {
+    return console.log("Disciplina inválida.");
   }
 
-  if (alunoEspecifico !== undefined) {
-    console.log(`Aluno com a matrícula ${matricula}:\n`);
-    alunoEspecifico?.toString();
+  const disciplina = disciplinas[index];
 
-    return alunoEspecifico;
-  } else {
-    console.log(`Aluno com a matrícula ${matricula} não encontrado.\n`);
-  }
+  const codigoTurma = await menu.question("Código da turma: ");
+
+  turmas.push(new Turma(codigoTurma, disciplina));
+  console.log(
+    `Turma ${codigoTurma} - ${disciplina.nome}, foi criada com sucesso.`
+  );
 }
 
-const alunoEspecifico = buscarAluno(1005);
+async function addAluno(): Promise<void> {
+  if (!turmas.length) {
+    return console.log("É necessário ter ao menos uma turma.");
+  }
 
-alunoEspecifico?.atualizarAluno({
-  nome: "Helena Souza",
-  email: "helena.souza@email.com",
-});
+  turmas.forEach((turma, i) => {
+    console.log(`${i + 1} - ${turma.disciplina.nome} (${turma.codigo})`);
+  });
+  const indexTurma = await menu.question("Número da turma: ");
+  const index = parseInt(indexTurma) - 1;
 
-listarTurma(turma1);
+  if (index < 0 || index >= turmas.length) {
+    return console.log("Turma inválida.");
+  }
 
-turma1.removerAluno(1015);
+  const turma = turmas[index];
 
-listarTurma(turma1);
+  const nomeAluno = await menu.question("Nome do aluno: ");
+  const matriculaAluno = await menu.question("Matricula do aluno: ");
+  const emailAluno = await menu.question("Email do aluno: ");
+
+  turma.adicionarAluno(
+    new Aluno(nomeAluno, parseInt(matriculaAluno), emailAluno)
+  );
+
+  console.log(
+    `Aluno ${nomeAluno} foi criado e adicionado a Turma ${turma.codigo} com sucesso.`
+  );
+}
+
+async function listarAluno(): Promise<void> {
+  if (!turmas.length) {
+    return console.log("É necessário ter ao menos uma turma.");
+  }
+
+  turmas.forEach((turma, i) => {
+    console.log(`${i + 1} - ${turma.disciplina.nome} (${turma.codigo})`);
+  });
+  const indexTurma = await menu.question("Número da turma: ");
+  const index = parseInt(indexTurma) - 1;
+
+  if (index < 0 || index >= turmas.length) {
+    return console.log("Turma inválida.");
+  }
+
+  const turma = turmas[index];
+
+  turma.listarAlunos();
+}
+
+async function buscarAluno(): Promise<void> {
+  if (!turmas.length) {
+    return console.log("É necessário ter ao menos uma turma.");
+  }
+
+  turmas.forEach((turma, i) => {
+    console.log(`${i + 1} - ${turma.disciplina.nome} (${turma.codigo})`);
+  });
+  const indexTurma = await menu.question("Número da turma: ");
+  const index = parseInt(indexTurma) - 1;
+
+  if (index < 0 || index >= turmas.length) {
+    return console.log("Turma inválida.");
+  }
+
+  const turma = turmas[index];
+
+  const matriculaAluno = await menu.question("Matricula do aluno: ");
+  turma.buscarAlunoPorMatricula(parseInt(matriculaAluno));
+}
+
+async function atualizarAluno(): Promise<void> {
+  if (!turmas.length) {
+    return console.log("É necessário ter ao menos uma turma.");
+  }
+
+  turmas.forEach((turma, i) => {
+    console.log(`${i + 1} - ${turma.disciplina.nome} (${turma.codigo})`);
+  });
+  const indexTurma = await menu.question("Número da turma: ");
+  const index = parseInt(indexTurma) - 1;
+
+  if (index < 0 || index >= turmas.length) {
+    return console.log("Turma inválida.");
+  }
+
+  const turma = turmas[index];
+
+  const matriculaAluno = await menu.question("Matricula do aluno: ");
+  const aluno = turma.buscarAlunoPorMatricula(parseInt(matriculaAluno));
+
+  const nomeAluno = await menu.question("Nome do aluno: ");
+  const novaMatriculaAluno = await menu.question("Matricula do aluno: ");
+  const emailAluno = await menu.question("Email do aluno: ");
+
+  const novosDados = {
+    nome: nomeAluno,
+    matricula: parseInt(novaMatriculaAluno),
+    email: emailAluno,
+  };
+
+  aluno?.atualizarAluno(novosDados);
+
+  console.log(
+    `O aluno com a matrícula: ${novaMatriculaAluno} foi atualizado com sucesso.`
+  );
+}
+
+async function removerAluno(): Promise<void> {
+  if (!turmas.length) {
+    return console.log("É necessário ter ao menos uma turma.");
+  }
+
+  turmas.forEach((turma, i) => {
+    console.log(`${i + 1} - ${turma.disciplina.nome} (${turma.codigo})`);
+  });
+  const indexTurma = await menu.question("Número da turma: ");
+  const index = parseInt(indexTurma) - 1;
+
+  if (index < 0 || index >= turmas.length) {
+    return console.log("Turma inválida.");
+  }
+
+  const turma = turmas[index];
+
+  const matriculaAluno = await menu.question("Matricula do aluno: ");
+  turma.removerAluno(parseInt(matriculaAluno));
+
+  console.log(
+    `O aluno com a matrícula: ${matriculaAluno} foi removido com sucesso.`
+  );
+
+  turma.listarAlunos();
+}
