@@ -3,6 +3,15 @@ import { Turma } from "./models/turma";
 import { Disciplina } from "./models/disciplina";
 
 import { Menu } from "./menu";
+import { AppDataSource } from "./data/ormconfig";
+
+AppDataSource.initialize()
+  .then(() => {
+    console.log("Conexão com o banco de dados estabelecida com sucesso!");
+  })
+  .catch((error) => {
+    console.error("Erro ao conectar-se ao banco de dados:", error);
+  });
 
 const disciplinas: Disciplina[] = [];
 const turmas: Turma[] = [];

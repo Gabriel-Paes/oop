@@ -1,13 +1,15 @@
-export class Aluno {
-  nome: string;
-  matricula: number;
-  email: string;
+import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
-  constructor(nome: string, matricula: number, email: string) {
-    this.nome = nome;
-    this.matricula = matricula;
-    this.email = email;
-  }
+@Entity()
+export class Aluno {
+  @PrimaryGeneratedColumn()
+  matricula!: number;
+
+  @Column()
+  nome!: string;
+
+  @Column()
+  email!: string;
 
   atualizarAluno(novosDados: {
     nome?: string;
@@ -25,9 +27,7 @@ export class Aluno {
     }
   }
 
-  toString(): void {
-    console.log(
-      `Nome: ${this.nome}\nMatrícula: ${this.matricula}\nE-mail: ${this.email}\n`
-    );
+  toString(): string {
+    return `Nome: ${this.nome}\nMatrícula: ${this.matricula}\nE-mail: ${this.email}\n`;
   }
 }
