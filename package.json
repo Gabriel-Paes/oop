@@ -32,6 +32,9 @@
     "typescript": "^5.5.4"
   },
   "dependencies": {
-    "env-var": "^7.5.0"
+    "env-var": "^7.5.0",
+    "mysql2": "^3.11.5",
+    "reflect-metadata": "^0.2.2",
+    "typeorm": "^0.3.20"
   }
 }
