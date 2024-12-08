@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { Turma } from "./turma";
 
 @Entity("disciplinas")
 export class Disciplina {
@@ -10,6 +11,9 @@ export class Disciplina {
 
   @Column()
   codigo!: string;
+
+  @OneToMany(() => Turma, (turma) => turma.disciplina)
+  turmas!: Turma[];
 
   constructor(nome: string, codigo: string) {
     this.nome = nome;

@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { Turma } from "./turma";
 
 @Entity("alunos")
 export class Aluno {
@@ -10,6 +11,9 @@ export class Aluno {
 
   @Column({ type: "varchar", length: 255, unique: true })
   email!: string;
+
+  @ManyToOne(() => Turma, (turma) => turma.alunos)
+  turma!: Turma;
 
   atualizarAluno(novosDados: { nome?: string; email?: string }): void {
     if (novosDados.nome !== undefined) {
