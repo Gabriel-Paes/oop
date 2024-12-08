@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import { DataSource } from "typeorm";
 import { Aluno } from "../models/aluno";
 import { Disciplina } from "../models/disciplina";

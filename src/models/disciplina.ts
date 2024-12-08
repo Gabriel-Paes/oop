@@ -1,13 +1,22 @@
+import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+
+@Entity("disciplinas")
 export class Disciplina {
-  nome: string;
-  codigo: string;
+  @PrimaryGeneratedColumn()
+  id!: number;
+
+  @Column()
+  nome!: string;
+
+  @Column()
+  codigo!: string;
 
   constructor(nome: string, codigo: string) {
     this.nome = nome;
     this.codigo = codigo;
   }
 
-  toString(): void {
-    console.log(`Nome: ${this.nome}\nCódigo: ${this.codigo}\n`);
+  toString(): string {
+    return `Nome: ${this.nome}\nCódigo: ${this.codigo}\n`;
   }
 }
