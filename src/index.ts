@@ -83,12 +83,9 @@ async function addAluno(): Promise<void> {
   const turma = turmas[index];
 
   const nomeAluno = await menu.question("Nome do aluno: ");
-  const matriculaAluno = await menu.question("Matricula do aluno: ");
   const emailAluno = await menu.question("Email do aluno: ");
 
-  turma.adicionarAluno(
-    new Aluno(nomeAluno, parseInt(matriculaAluno), emailAluno)
-  );
+  turma.adicionarAluno(new Aluno(nomeAluno, emailAluno));
 
   console.log(
     `Aluno ${nomeAluno} foi criado e adicionado a Turma ${turma.codigo} com sucesso.`

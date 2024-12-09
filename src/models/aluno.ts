@@ -15,6 +15,11 @@ export class Aluno {
   @ManyToOne(() => Turma, (turma) => turma.alunos)
   turma!: Turma;
 
+  constructor(nome: string, email: string) {
+    this.nome = nome;
+    this.email = email;
+  }
+
   atualizarAluno(novosDados: { nome?: string; email?: string }): void {
     if (novosDados.nome !== undefined) {
       this.nome = novosDados.nome;
